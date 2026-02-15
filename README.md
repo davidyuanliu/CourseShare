@@ -5,6 +5,5 @@ CourseShare is a collaborative web platform where students can share, rate, and 
 
 ## Members
 - Bakshish Singh – Backend (Go)
-- David Liu – Backend (Go)
-- Mohit Nehra – Frontend (Angular)
-- Rajesh Kumar Bathula – Frontend (Angular)
+- Rajesh Kumar Bathula – Backend (Go)
+- David Liu – Frontend (Angular)
