@@ -1,0 +1,22 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.demo-controls {
+  margin-left: 20px;
+  font-size: 0.8rem;
+}
