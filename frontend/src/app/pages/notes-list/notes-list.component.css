@@ -1,0 +1,40 @@
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.note-card {
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.note-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.excerpt {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.empty-state {
+    padding: 60px 20px;
+    color: #999;
+}
+
+.huge-icon {
+    font-size: 64px;
+    height: 64px;
+    width: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}

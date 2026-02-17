@@ -1,0 +1,38 @@
+<div class="header-row">
+    <button mat-icon-button (click)="goBack()" aria-label="Back">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Note Details</h2>
+</div>
+
+<div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
+</div>
+
+<mat-card *ngIf="!loading && note" class="note-detail-card">
+    <mat-card-header>
+        <mat-card-title>{{ note.title }}</mat-card-title>
+        <mat-card-subtitle>
+            Uploaded by {{ note.author_name || 'Anonymous' }} &bull; {{ note.created_at | date:'fullDate' }}
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="note-content">
+        <div class="content-body">
+            {{ note.content }}
+        </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+        <div class="footer-info">
+            <small>Note ID: {{ note.id }}</small>
+        </div>
+    </mat-card-footer>
+</mat-card>
