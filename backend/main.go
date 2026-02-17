@@ -5,10 +5,15 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/davidyuanliu/CourseShare/backend/config"
-	"github.com/davidyuanliu/CourseShare/backend/models"
-	"github.com/davidyuanliu/CourseShare/backend/handlers"
+	"github.com/go-chi/chi/v5/middleware"
+
+	"courseshare/config"
+	"courseshare/handlers"
+	"courseshare/models"
 )
+
+
+
 
 func main() {
 
@@ -16,14 +21,12 @@ func main() {
 
 	config.DB.AutoMigrate(&models.Course{}, &models.Note{})
 
-	r := chi.NewRouter()
+r := chi.NewRouter()
 
-	r.Use(func(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Incoming:", r.Method, r.URL.Path)
-		next.ServeHTTP(w, r)
-	})
-})
+r.Use(middleware.Logger)
+r.Use(middleware.Recoverer)
+r.Use(middleware.StripSlashes)
+
 
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {

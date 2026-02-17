@@ -1,4 +1,4 @@
-module github.com/davidyuanliu/CourseShare/backend
+module courseshare
 
 go 1.25.0
 

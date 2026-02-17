@@ -6,9 +6,11 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/davidyuanliu/CourseShare/backend/config"
-	"github.com/davidyuanliu/CourseShare/backend/models"
+
+	"courseshare/config"
+	"courseshare/models"
 )
+
 
 func GetNotesByCourse(w http.ResponseWriter, r *http.Request) {
 	courseIDParam := chi.URLParam(r, "id")

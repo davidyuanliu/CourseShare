@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/davidyuanliu/CourseShare/backend/config"
-	"github.com/davidyuanliu/CourseShare/backend/models"
+	"courseshare/config"
+	"courseshare/models"
 )
+
 
 func GetCourses(w http.ResponseWriter, r *http.Request) {
 	var courses []models.Course
