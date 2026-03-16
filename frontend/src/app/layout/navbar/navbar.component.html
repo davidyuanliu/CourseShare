@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+    <span routerLink="/" class="logo clickable">CourseShare</span>
+    <span class="spacer"></span>
+
+    <button mat-button routerLink="/courses" routerLinkActive="active">Courses</button>
+
+    <div class="demo-controls">
+        <mat-slide-toggle [checked]="demoControl.errorMode" (change)="demoControl.toggleErrorMode()">
+            Error Mode
+        </mat-slide-toggle>
+    </div>
+</mat-toolbar>

@@ -1,0 +1,38 @@
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.note-detail-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.note-content {
+    padding: 30px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.content-body {
+    margin-top: 20px;
+}
+
+mat-card-title {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+mat-card-subtitle {
+    font-size: 1rem;
+}
+
+.footer-info {
+    padding: 10px 16px;
+    color: #888;
+    border-top: 1px solid #eee;
+}
