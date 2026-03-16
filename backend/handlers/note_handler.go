@@ -82,5 +82,8 @@ func CreateNote(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(note)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "Note created successfully",
+		"note":    note,
+	})
 }
