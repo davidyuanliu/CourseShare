@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 
 	"courseshare/config"
 	"courseshare/models"
 )
-
 
 func GetNotesByCourse(w http.ResponseWriter, r *http.Request) {
 	courseIDParam := chi.URLParam(r, "id")
@@ -51,19 +51,39 @@ func GetNote(w http.ResponseWriter, r *http.Request) {
 func CreateNote(w http.ResponseWriter, r *http.Request) {
 	var note models.Note
 
-	err := json.NewDecoder(r.Body).Decode(&note)
-	if err != nil {
+	decoder := json.NewDecoder(r.Body)
+	if err := decoder.Decode(&note); err != nil {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
 
-	if note.Title == "" || note.Content == "" || note.CourseID == 0 {
-		http.Error(w, "Title, content, and courseId are required", http.StatusBadRequest)
+	missingFields := []string{}
+	if strings.TrimSpace(note.Title) == "" {
+		missingFields = append(missingFields, "title")
+	}
+	if strings.TrimSpace(note.Content) == "" {
+		missingFields = append(missingFields, "content")
+	}
+	if note.CourseID == 0 {
+		missingFields = append(missingFields, "courseId")
+	}
+
+	if len(missingFields) > 0 {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"error":         "Missing required fields",
+			"missingFields": missingFields,
+		})
 		return
 	}
 
 	config.DB.Create(&note)
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(note)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "Note created successfully",
+		"note":    note,
+	})
 }
