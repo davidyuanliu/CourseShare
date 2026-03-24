@@ -64,6 +64,7 @@ export class CreateNoteComponent implements OnInit {
     this.serverError = null;
 
     const notePayload = {
+      id: Date.now().toString(),
       ...this.noteForm.value,
       course_id: this.courseId,
       created_at: new Date().toISOString()
