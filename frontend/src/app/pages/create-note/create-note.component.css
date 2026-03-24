@@ -1,0 +1,33 @@
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-card {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.server-error {
+    margin-bottom: 16px;
+}
+
+.btn-spinner {
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+}

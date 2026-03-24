@@ -36,4 +36,10 @@ export class CourseShareApiService {
     if (error) return error;
     return this.http.get<Note>(`${this.apiUrl}/notes/${noteId}`);
   }
+
+  createNote(note: Partial<Note>): Observable<Note> {
+    const error = this.checkError('create note');
+    if (error) return error;
+    return this.http.post<Note>(`${this.apiUrl}/notes`, note);
+  }
 }

@@ -3,6 +3,11 @@
         <mat-icon>arrow_back</mat-icon>
     </button>
     <h2>Notes for Course</h2>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary"
+        [routerLink]="['/courses', courseId, 'notes', 'new']" id="create-note-btn">
+        <mat-icon>add</mat-icon> Create Note
+    </button>
 </div>
 
 <div *ngIf="loading" class="loading-container">

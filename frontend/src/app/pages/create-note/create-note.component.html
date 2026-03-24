@@ -1,0 +1,51 @@
+<div class="header-row">
+    <button mat-icon-button [routerLink]="['/courses', courseId, 'notes']" aria-label="Back to notes">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Create Note</h2>
+</div>
+
+<mat-card class="form-card">
+    <mat-card-content>
+        <div *ngIf="serverError" class="error-message server-error">
+            <p>{{ serverError }}</p>
+        </div>
+
+        <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" placeholder="Enter note title" id="note-title-input">
+                <mat-error *ngIf="noteForm.get('title')?.hasError('required')">
+                    Title is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Content</mat-label>
+                <textarea matInput formControlName="content" placeholder="Enter note content"
+                    rows="8" id="note-content-input"></textarea>
+                <mat-error *ngIf="noteForm.get('content')?.hasError('required')">
+                    Content is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Author Name</mat-label>
+                <input matInput formControlName="author_name" placeholder="Your name (optional)"
+                    id="note-author-input">
+            </mat-form-field>
+
+            <div class="form-actions">
+                <button mat-stroked-button type="button"
+                    [routerLink]="['/courses', courseId, 'notes']">
+                    Cancel
+                </button>
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="submitting" id="note-submit-btn">
+                    <mat-spinner *ngIf="submitting" diameter="20" class="btn-spinner"></mat-spinner>
+                    {{ submitting ? 'Submitting...' : 'Create Note' }}
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
