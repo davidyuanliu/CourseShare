@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoursesComponent } from './courses.component';
 import { CourseShareApiService } from '../../services/course-share-api.service';
 import { Course } from '../../mock/mock-data.service';
+import { DemoControlService } from '../../services/demo-control.service';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -25,7 +26,8 @@ describe('CoursesComponent', () => {
       imports: [CoursesComponent, BrowserAnimationsModule],
       providers: [
         provideRouter([]),
-        { provide: CourseShareApiService, useValue: spy }
+        { provide: CourseShareApiService, useValue: spy },
+        DemoControlService
       ]
     })
     .compileComponents();

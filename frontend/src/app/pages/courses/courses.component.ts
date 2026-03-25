@@ -5,11 +5,12 @@ import { Course } from '../../mock/mock-data.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { DemoControlService } from '../../services/demo-control.service';
 
 @Component({
   selector: 'app-courses',
@@ -25,7 +26,11 @@ export class CoursesComponent implements OnInit {
   newCourseName = '';
   addingCourse = false;
 
-  constructor(private apiService: CourseShareApiService) { }
+  constructor(
+    private apiService: CourseShareApiService,
+    public demoControl: DemoControlService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.fetchCourses();
@@ -51,15 +56,25 @@ export class CoursesComponent implements OnInit {
 
     this.addingCourse = true;
     this.apiService.createCourse({ name: this.newCourseName }).subscribe({
-      next: () => {
+      next: (course) => {
+        console.log('Course added successfully:', course);
+        this.courses.push(course);
         this.newCourseName = '';
         this.addingCourse = false;
-        this.fetchCourses();
       },
       error: (err) => {
-        this.error = err.message || 'Failed to add course.';
+        console.error('Failed to add course:', err);
         this.addingCourse = false;
       }
     });
+  }
+
+  viewNotes(courseId: number): void {
+    console.log('Navigating to notes for course ID:', courseId);
+    if (courseId) {
+      this.router.navigate(['/courses', courseId, 'notes']);
+    } else {
+      console.error('Cannot navigate: courseId is undefined or 0');
+    }
   }
 }
