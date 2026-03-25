@@ -20,11 +20,11 @@
 </div>
 
 <div *ngIf="!loading && !error" class="notes-list">
-    <mat-card *ngFor="let note of notes" class="note-card clickable" [routerLink]="['/notes', note.id]">
+    <mat-card *ngFor="let note of notes" class="note-card clickable" [routerLink]="['/notes', note.ID]">
         <mat-card-header>
             <mat-card-title>{{ note.title }}</mat-card-title>
             <mat-card-subtitle>
-                By {{ note.author_name || 'Anonymous' }} &bull; {{ note.created_at | date:'mediumDate' }}
+                By Anonymous &bull; {{ note.CreatedAt | date:'mediumDate' }}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>

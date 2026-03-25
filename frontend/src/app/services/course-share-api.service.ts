@@ -8,7 +8,7 @@ import { DemoControlService } from './demo-control.service';
   providedIn: 'root'
 })
 export class CourseShareApiService {
-  private apiUrl = 'api';
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient, private demoControl: DemoControlService) { }
 
@@ -25,10 +25,16 @@ export class CourseShareApiService {
     return this.http.get<Course[]>(`${this.apiUrl}/courses`);
   }
 
+  createCourse(course: { name: string }): Observable<Course> {
+    const error = this.checkError('create course');
+    if (error) return error;
+    return this.http.post<Course>(`${this.apiUrl}/courses`, course);
+  }
+
   getNotesByCourse(courseId: string): Observable<Note[]> {
     const error = this.checkError('fetch notes');
     if (error) return error;
-    return this.http.get<Note[]>(`${this.apiUrl}/notes?course_id=${courseId}`);
+    return this.http.get<Note[]>(`${this.apiUrl}/courses/${courseId}/notes`);
   }
 
   getNote(noteId: string): Observable<Note> {

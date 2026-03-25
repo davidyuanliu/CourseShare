@@ -3,22 +3,18 @@ package config
 import (
 	"log"
 
-	"gorm.io/driver/postgres"
+	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
-
 
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	dsn := "host=localhost user=singh dbname=courseshare port=5432 sslmode=disable"
-
-	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("courseshare.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Failed to connect to database!")
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
 	DB = database
-	log.Println("Database connected!")
-
+	log.Println("Database connected using pure-Go SQLite!")
 }

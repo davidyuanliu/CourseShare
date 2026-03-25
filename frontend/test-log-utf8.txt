@@ -1,0 +1,56 @@
+﻿
+> courseshare@0.0.0 test
+> ng test --watch=false --no-progress --browsers=ChromeHeadless
+
+npm : 
+At line:1 char:1
++ npm run test -- 
+--watch=false 
+--no-progress --browser
+s=ChromeHeadless ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+./src/app/mock/mock-dat
+a.service.spec.ts:7:29-
+44 - Error: export 
+'MockDataService' 
+(imported as 
+'MockDataService') was 
+not found in 
+'./mock-data.service' 
+(module has no exports)
+
+Error: src/app/mock/moc
+k-data.service.spec.ts:
+3:10 - error TS2305: 
+Module '"./mock-data.se
+rvice"' has no 
+exported member 
+'MockDataService'.
+
+3 import { 
+MockDataService } from 
+'./mock-data.service';
+           
+~~~~~~~~~~~~~~~
+
+
+
+24 03 2026 18:46:18.681:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+24 03 2026 18:46:18.683:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+24 03 2026 18:46:18.684:ERROR [karma-server]: Error: Found 1 load error
+    at Server.<anonymous> (C:\Users\grani\OneDrive\Desktop\Projects\CourseShare\frontend\node_modules\karma\lib\server.js:243:26)
+    at Object.onceWrapper (node:events:628:28)
+    at Server.emit (node:events:526:35)
+    at emitListeningNT (node:net:1906:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)

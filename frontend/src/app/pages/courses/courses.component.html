@@ -1,4 +1,15 @@
-<h2>Available Courses</h2>
+<div class="header-with-action">
+    <h2>Available Courses</h2>
+    <div class="add-course-form">
+        <mat-form-field appearance="outline" dense>
+            <mat-label>New Course Name</mat-label>
+            <input matInput [(ngModel)]="newCourseName" placeholder="e.g. Software Testing" [disabled]="addingCourse" (keyup.enter)="addCourse()">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="addCourse()" [disabled]="!newCourseName.trim() || addingCourse">
+            <mat-icon>add</mat-icon> ADD
+        </button>
+    </div>
+</div>
 
 <div *ngIf="loading" class="loading-container">
     <mat-spinner diameter="50"></mat-spinner>
@@ -12,11 +23,10 @@
 <div *ngIf="!loading && !error" class="courses-grid">
     <mat-card *ngFor="let course of courses" class="course-card">
         <mat-card-header>
-            <mat-card-title>{{ course.code }}</mat-card-title>
-            <mat-card-subtitle>{{ course.title }}</mat-card-subtitle>
+            <mat-card-title>{{ course.name }}</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-button color="primary" [routerLink]="['/courses', course.id, 'notes']">VIEW NOTES</button>
+            <button mat-button color="primary" [routerLink]="['/courses', course.ID, 'notes']">VIEW NOTES</button>
         </mat-card-actions>
     </mat-card>
 

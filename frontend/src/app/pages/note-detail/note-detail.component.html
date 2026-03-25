@@ -18,7 +18,7 @@
     <mat-card-header>
         <mat-card-title>{{ note.title }}</mat-card-title>
         <mat-card-subtitle>
-            Uploaded by {{ note.author_name || 'Anonymous' }} &bull; {{ note.created_at | date:'fullDate' }}
+            Uploaded by Anonymous &bull; {{ note.CreatedAt | date:'fullDate' }}
         </mat-card-subtitle>
     </mat-card-header>
 
@@ -32,7 +32,7 @@
 
     <mat-card-footer>
         <div class="footer-info">
-            <small>Note ID: {{ note.id }}</small>
+            <small>Note ID: {{ note.ID }}</small>
         </div>
     </mat-card-footer>
 </mat-card>

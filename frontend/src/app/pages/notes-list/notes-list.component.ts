@@ -40,7 +40,7 @@ export class NotesListComponent implements OnInit {
     this.error = null;
     this.apiService.getNotesByCourse(courseId).subscribe({
       next: (data) => {
-        this.notes = data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        this.notes = data.sort((a, b) => new Date(b.CreatedAt).getTime() - new Date(a.CreatedAt).getTime());
         this.loading = false;
       },
       error: (err) => {
