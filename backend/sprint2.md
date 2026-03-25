@@ -1,5 +1,7 @@
 # Sprint 2 Report – CourseShare Backend
 
+## Video Link: https://youtu.be/tHuzg5UhwB0
+
 ## Overview
 
 This document describes the work completed during Sprint 2 and provides detailed documentation of the CourseShare backend API. The CourseShare application allows users to create courses and upload notes associated with each course.
