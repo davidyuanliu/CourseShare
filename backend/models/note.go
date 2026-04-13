@@ -7,4 +7,6 @@ type Note struct {
 	Title    string `json:"title"`
 	Content  string `json:"content"`
 	CourseID uint   `json:"courseId"`
+	UserID   uint   `json:"userId"`
+	User     *User  `json:"author"`
 }
