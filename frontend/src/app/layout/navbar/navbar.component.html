@@ -4,6 +4,16 @@
 
     <button mat-button routerLink="/courses" routerLinkActive="active">Courses</button>
 
+    <ng-container *ngIf="!(authService.currentUser$ | async); else loggedIn">
+        <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
+        <button mat-button routerLink="/register" routerLinkActive="active">Register</button>
+    </ng-container>
+
+    <ng-template #loggedIn>
+        <button mat-button disabled>{{ (authService.currentUser$ | async)?.email }}</button>
+        <button mat-button (click)="logout()">Logout</button>
+    </ng-template>
+
     <div class="demo-controls">
         <mat-slide-toggle [checked]="demoControl.errorMode" (change)="demoControl.toggleErrorMode()">
             Error Mode

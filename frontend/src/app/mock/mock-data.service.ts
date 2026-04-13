@@ -11,4 +11,9 @@ export interface Note {
   title: string;
   content: string;
   courseId: number;
+  userId: number;
+  author: {
+    id: number;
+    email: string;
+  };
 }

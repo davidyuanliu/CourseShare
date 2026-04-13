@@ -49,4 +49,16 @@ export class CourseShareApiService {
     if (error) return error;
     return this.http.post<Note>(`${this.apiUrl}/notes`, note, { headers: this.headers });
   }
+
+  updateNote(noteId: number | string, note: Partial<Note>): Observable<Note> {
+    const error = this.checkError('update note');
+    if (error) return error;
+    return this.http.put<Note>(`${this.apiUrl}/notes/${noteId}`, note, { headers: this.headers });
+  }
+
+  deleteNote(noteId: number | string): Observable<any> {
+    const error = this.checkError('delete note');
+    if (error) return error;
+    return this.http.delete(`${this.apiUrl}/notes/${noteId}`, { headers: this.headers });
+  }
 }

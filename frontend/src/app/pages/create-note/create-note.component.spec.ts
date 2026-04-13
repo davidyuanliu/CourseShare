@@ -71,8 +71,11 @@ describe('CreateNoteComponent', () => {
   });
 
   it('should call API and navigate on successful submit', fakeAsync(() => {
-    const mockNote = { ID: 999, title: 'Test', content: 'Content', courseId: 1, CreatedAt: '' };
-    mockApiService.createNote.and.returnValue(of(mockNote));
+    const mockNote = { ID: 999, title: 'Test', content: 'Content',      courseId: 1,
+      CreatedAt: new Date().toISOString(),
+      userId: 1,
+      author: { id: 1, email: 'test@example.com' }
+    };mockApiService.createNote.and.returnValue(of(mockNote));
     component.courseId = '1';
 
     component.noteForm.patchValue({ title: 'Test', content: 'Content' });

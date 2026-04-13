@@ -18,8 +18,16 @@
     <mat-card-header>
         <mat-card-title>{{ note.title }}</mat-card-title>
         <mat-card-subtitle>
-            Uploaded by Anonymous &bull; {{ note.CreatedAt | date:'fullDate' }}
+            Uploaded by {{ note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
         </mat-card-subtitle>
+        <div class="owner-actions" *ngIf="isOwner" style="margin-left: auto;">
+            <button mat-icon-button color="primary" [routerLink]="['/notes', note.ID, 'edit']" aria-label="Edit Note">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteNote()" aria-label="Delete Note">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </mat-card-header>
 
     <mat-divider></mat-divider>
