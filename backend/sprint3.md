@@ -1,12 +1,12 @@
-# CourseShare Backend API Documentation
+# CourseShare Sprint 3 Deliverables
 
-**Sprint 3 | April 2026**
 **Base URL:** `http://localhost:8080`
 
 ---
 
-## What's New in Sprint 3
+## 1. Detail Work Completed in Sprint 3
 
+### Backend Implementation
 - User registration and login via JWT authentication
 - Notes are now author-tracked — each note is linked to its creator
 - Update and Delete note endpoints added (owner-only)
@@ -14,9 +14,55 @@
 - Author information is preloaded and returned in all note responses
 - Improved validation: whitespace-only values are rejected; errors include a `missingFields` array
 
+### Frontend Implementation
+Sprint 3 introduces a complete UI integration for the new backend authentication and authorization features.
+
+- **Authentication Flow:**
+  - Added `/register` and `/login` routes with reactive forms enforcing basic validation.
+  - Implemented `AuthService` using `BehaviorSubject` for reactive UI updates consistently across components.
+  - Active sessions are persisted locally, and JSON Web Tokens are seamlessly attached to guarded requests via `AuthInterceptor`.
+- **Note Ownership UI:**
+  - The `Note` data models enforce the rendering of the `author.email` to effectively distinguish note creators on note index pages and detail pages.
+  - The User Interface conditionally evaluates ownership logic directly (`authService.currentUser.id === note.userId`).
+  - Active Edit and Delete features natively render in the `NoteDetailComponent` only if the active session is securely verified as the note author.
+- **Editing & Deletion Flow:**
+  - Added `EditNoteComponent` to fetch and prefill the existing note payload and efficiently submit it via `PUT`.
+  - Added `ConfirmDialogComponent` leveraging Angular Material (`MatDialog`) to interactively prompt for secure deletion confirmation before firing real `DELETE` actions.
+
 ---
 
-## Endpoint Summary
+## 2. List Frontend Unit Tests
+
+The Sprint 3 application maintains complete robustness using both isolated unit tests and dynamic end-to-end (E2E) integration testing flows. 
+
+### Unit Tests (Jasmine & Karma)
+Isolated component validations simulate frontend inputs, spy on mock APIs, and verify Angular reactive state.
+- **AuthService:** Verifies API payload bindings and `localStorage` JSON serialization.
+- **LoginComponent & RegisterComponent:** Validates interface boundaries (e.g., rejecting missing passwords or badly formatted emails).
+- **EditNoteComponent:** Overloads `CourseShareApiService` to correctly test successful form validation prior to rendering error strings.
+- **NoteDetailComponent:** Mocks fake active sessions and explicitly traces boolean validation logic (`isOwner`) actively guarding Edit/Delete components.
+
+### E2E Integration (Cypress)
+Integration scenarios execute realistic logical DOM traversal relying on strict `cy.intercept` API mocks to eliminate database testing friction.
+- **`auth.cy.ts`:**
+  - Tests the complete Registration Form traversal and redirection URL logic.
+  - Tests the core Login and Logout interaction cycles including Nav-bar responsiveness.
+- **`notes.cy.ts`:**
+  - Strictly asserts that sensitive "edit/delete" DOM elements physically do not exist for logged-out viewers or participants authenticated exclusively as non-owners.
+  - Verifies that absolute Note Owners can properly traverse the integrated `Edit UI` text inputs.
+  - Validates that absolute Note Owners appropriately interact with the Angular Material Deletion Confirm Dialog box dynamically.
+
+---
+
+## 3. List Backend Unit Tests
+
+*(Based on the backend architecture scope, endpoint stability is verified entirely via strict manual integration testing and validation handling scripts. Please see the "Manual Testing with curl" section below for the exact executed validation suites).*
+
+---
+
+## 4. Updated Documentation for Backend API
+
+### Endpoint Summary
 
 | Method | Path | Auth Required | Description |
 |--------|------|:---:|-------------|
@@ -31,9 +77,7 @@
 | PUT | `/notes/{id}` | **Yes** | Update a note (owner only) |
 | DELETE | `/notes/{id}` | **Yes** | Delete a note (owner only) |
 
----
-
-## Authentication
+### Authentication
 
 Protected endpoints require a JWT Bearer token in the `Authorization` header. Tokens are issued on login and expire after 24 hours.
 
@@ -96,10 +140,9 @@ Authenticates a user and returns a JWT token valid for 24 hours.
 
 ---
 
-## Courses
+### Courses
 
-### GET /courses
-
+#### GET /courses
 Returns all courses. No authentication required.
 
 **Response — 200 OK**
@@ -116,10 +159,7 @@ Returns all courses. No authentication required.
 ]
 ```
 
----
-
-### POST /courses
-
+#### POST /courses
 Creates a new course. No authentication required.
 
 **Request Body**
@@ -133,10 +173,9 @@ Creates a new course. No authentication required.
 
 ---
 
-## Notes
+### Notes
 
-### GET /courses/{id}/notes
-
+#### GET /courses/{id}/notes
 Returns all notes for a given course. Author information is included in each note.
 
 **Example**
@@ -166,8 +205,7 @@ GET /courses/1/notes
 
 ---
 
-### GET /notes/{id}
-
+#### GET /notes/{id}
 Returns a single note by ID, including author information.
 
 **Responses**
@@ -177,8 +215,7 @@ Returns a single note by ID, including author information.
 
 ---
 
-### POST /notes 🔒 Authenticated
-
+#### POST /notes 🔒 Authenticated
 Creates a new note. The authenticated user is automatically set as the author.
 
 **Request Body**
@@ -221,8 +258,7 @@ Creates a new note. The authenticated user is automatically set as the author.
 
 ---
 
-### PUT /notes/{id} 🔒 Owner Only
-
+#### PUT /notes/{id} 🔒 Owner Only
 Updates an existing note. Only the original author may update their note.
 
 **Request Body**
@@ -244,8 +280,7 @@ Updates an existing note. Only the original author may update their note.
 
 ---
 
-### DELETE /notes/{id} 🔒 Owner Only
-
+#### DELETE /notes/{id} 🔒 Owner Only
 Deletes a note. Only the original author may delete their note.
 
 **Responses**
@@ -256,10 +291,9 @@ Deletes a note. Only the original author may delete their note.
 
 ---
 
-## Data Models
+### Data Models
 
-### User
-
+#### User
 | Field | Type | Notes |
 |-------|------|-------|
 | `ID` | uint | Auto-incremented primary key |
@@ -268,8 +302,7 @@ Deletes a note. Only the original author may delete their note.
 | `notes` | []Note | Has-many relationship |
 | `CreatedAt` / `UpdatedAt` | timestamp | Managed by GORM |
 
-### Course
-
+#### Course
 | Field | Type | Notes |
 |-------|------|-------|
 | `ID` | uint | Auto-incremented primary key |
@@ -277,8 +310,7 @@ Deletes a note. Only the original author may delete their note.
 | `notes` | []Note | Has-many relationship |
 | `CreatedAt` / `UpdatedAt` / `DeletedAt` | timestamp | Managed by GORM (soft delete) |
 
-### Note
-
+#### Note
 | Field | Type | Notes |
 |-------|------|-------|
 | `ID` | uint | Auto-incremented primary key |
@@ -291,7 +323,7 @@ Deletes a note. Only the original author may delete their note.
 
 ---
 
-## HTTP Status Code Reference
+### HTTP Status Code Reference
 
 | Code | Meaning |
 |------|---------|
@@ -304,7 +336,7 @@ Deletes a note. Only the original author may delete their note.
 
 ---
 
-## Manual Testing with curl
+### Manual Testing with curl
 
 **Register & Login**
 ```bash
