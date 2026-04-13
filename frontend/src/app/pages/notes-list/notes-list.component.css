@@ -5,6 +5,10 @@
     margin-bottom: 20px;
 }
 
+.spacer {
+    flex: 1;
+}
+
 .notes-list {
     display: flex;
     flex-direction: column;

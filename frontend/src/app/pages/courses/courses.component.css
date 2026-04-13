@@ -1,3 +1,26 @@
+.header-with-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.add-course-form {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.add-course-form mat-form-field {
+    width: 250px;
+}
+
+.add-course-form button {
+    height: 56px;
+}
+
 .courses-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
