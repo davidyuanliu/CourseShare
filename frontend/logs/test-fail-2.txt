@@ -1,0 +1,71 @@
+﻿
+> courseshare@0.0.0 test
+> ng test --watch=false --no-progress --browsers=ChromeHeadless
+
+24 03 2026 18:53:17.737:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+24 03 2026 18:53:17.739:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+24 03 2026 18:53:17.745:INFO [launcher]: Starting browser ChromeHeadless
+24 03 2026 18:53:19.039:INFO [Chrome Headless 146.0.0.0 (Windows 10)]: Connected on socket jZfy_VrvXhLVCJ8FAAAB with id 81751501
+Chrome Headless 146.0.0.0 (Windows 10): Executed 0 of 14[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 1 of 14[32m SUCCESS[39m (0 secs / 0.094 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 2 of 14[32m SUCCESS[39m (0 secs / 0.106 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 3 of 14[32m SUCCESS[39m (0 secs / 0.12 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 4 of 14[32m SUCCESS[39m (0 secs / 0.13 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 5 of 14[32m SUCCESS[39m (0 secs / 0.141 secs)
+[1A[2K[31mChrome Headless 146.0.0.0 (Windows 10) CreateNoteComponent should display server error on API failure FAILED[39m
+	Expected null to be 'Title is required'.
+	    at <Jasmine>
+	    at UserContext.apply (src/app/pages/create-note/create-note.component.spec.ts:101:44)
+	    at UserContext.apply (node_modules/zone.js/fesm2015/zone-testing.js:1702:26)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	Expected spy navigate not to have been called.
+	    at <Jasmine>
+	    at UserContext.apply (src/app/pages/create-note/create-note.component.spec.ts:102:42)
+	    at UserContext.apply (node_modules/zone.js/fesm2015/zone-testing.js:1702:26)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	Error: 1 timer(s) still in the queue.
+	    at UserContext.apply (node_modules/zone.js/fesm2015/zone-testing.js:1719:27)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:368:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:111:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 146.0.0.0 (Windows 10): Executed 6 of 14[31m (1 FAILED)[39m (0 secs / 0.159 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 7 of 14[31m (1 FAILED)[39m (0 secs / 0.168 secs)
+[1A[2K[31mChrome Headless 146.0.0.0 (Windows 10) CreateNoteComponent should call API and navigate on successful submit FAILED[39m
+	Expected spy CourseShareApiService.createNote to have been called.
+	    at <Jasmine>
+	    at UserContext.apply (src/app/pages/create-note/create-note.component.spec.ts:83:48)
+	    at UserContext.apply (node_modules/zone.js/fesm2015/zone-testing.js:1702:26)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	Expected spy MatSnackBar.open to have been called with:
+	  [ 'Note created successfully!', 'Close', <jasmine.any(Object)> ]
+	but it was never called.
+	    at <Jasmine>
+	    at UserContext.apply (src/app/pages/create-note/create-note.component.spec.ts:84:40)
+	    at UserContext.apply (node_modules/zone.js/fesm2015/zone-testing.js:1702:26)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	Error: 1 timer(s) still in the queue.
+	    at UserContext.apply (node_modules/zone.js/fesm2015/zone-testing.js:1719:27)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:368:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:111:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 146.0.0.0 (Windows 10): Executed 8 of 14[31m (2 FAILED)[39m (0 secs / 0.179 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 9 of 14[31m (2 FAILED)[39m (0 secs / 0.19 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 10 of 14[31m (2 FAILED)[39m (0 secs / 0.206 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 11 of 14[31m (2 FAILED)[39m (0 secs / 0.212 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 12 of 14[31m (2 FAILED)[39m (0 secs / 0.214 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 13 of 14[31m (2 FAILED)[39m (0 secs / 0.215 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 14 of 14[31m (2 FAILED)[39m (0 secs / 0.218 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 14 of 14[31m (2 FAILED)[39m (0.247 secs / 0.218 secs)
+[31mTOTAL: 2 FAILED, 12 SUCCESS[39m

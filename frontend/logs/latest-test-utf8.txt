@@ -1,0 +1,46 @@
+﻿
+> courseshare@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless
+
+25 03 2026 02:15:50.405:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+25 03 2026 02:15:50.407:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+25 03 2026 02:15:50.427:INFO [launcher]: Starting browser ChromeHeadless
+25 03 2026 02:15:51.665:INFO [Chrome Headless 146.0.0.0 (Windows 10)]: Connected on socket 6e3S6IM8uxomqLQHAAAB with id 40683988
+Chrome Headless 146.0.0.0 (Windows 10): Executed 0 of 14[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 1 of 14[32m SUCCESS[39m (0 secs / 0.069 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 2 of 14[32m SUCCESS[39m (0 secs / 0.077 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 3 of 14[32m SUCCESS[39m (0 secs / 0.097 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 4 of 14[32m SUCCESS[39m (0 secs / 0.105 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 5 of 14[32m SUCCESS[39m (0 secs / 0.112 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 6 of 14[32m SUCCESS[39m (0 secs / 0.118 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 7 of 14[32m SUCCESS[39m (0 secs / 0.125 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 8 of 14[32m SUCCESS[39m (0 secs / 0.13 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 9 of 14[32m SUCCESS[39m (0 secs / 0.147 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 10 of 14[32m SUCCESS[39m (0 secs / 0.154 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 11 of 14[32m SUCCESS[39m (0 secs / 0.16 secs)
+[1A[2K[31mChrome Headless 146.0.0.0 (Windows 10) CourseShareApiService should fetch courses successfully FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: http://localhost:8080/courses", found none. Requests received are: GET https://unconstellated-ruthann-fiducially.ngrok-free.dev/courses.
+	    at HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:270:19)
+	    at UserContext.apply (src/app/services/course-share-api.service.spec.ts:43:26)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:368:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:111:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+	Error: Expected no open requests, found 1: GET https://unconstellated-ruthann-fiducially.ngrok-free.dev/courses
+	    at HttpClientTestingBackend.verify (node_modules/@angular/common/fesm2022/http/testing.mjs:298:19)
+	    at UserContext.apply (src/app/services/course-share-api.service.spec.ts:25:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:369:28)
+	    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2081:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:368:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:111:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 146.0.0.0 (Windows 10): Executed 12 of 14[31m (1 FAILED)[39m (0 secs / 0.162 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 13 of 14[31m (1 FAILED)[39m (0 secs / 0.163 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 14 of 14[31m (1 FAILED)[39m (0 secs / 0.163 secs)
+[1A[2KChrome Headless 146.0.0.0 (Windows 10): Executed 14 of 14[31m (1 FAILED)[39m (0.173 secs / 0.163 secs)
+[31mTOTAL: 1 FAILED, 13 SUCCESS[39m
