@@ -20,7 +20,7 @@ describe('CreateNoteComponent', () => {
   beforeEach(async () => {
     mockApiService = jasmine.createSpyObj('CourseShareApiService', ['createNote']);
     mockSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
-    mockApiService.createNote.and.returnValue(of({ id: 1, title: 'Test', content: 'Test', courseId: 1, CreatedAt: '', UpdatedAt: '' } as any));
+    mockApiService.createNote.and.returnValue(of({ ID: 1, title: 'Test', content: 'Test', courseId: 1, CreatedAt: '', UpdatedAt: '' } as any));
 
     await TestBed.configureTestingModule({
       imports: [CreateNoteComponent, BrowserAnimationsModule],
@@ -71,7 +71,7 @@ describe('CreateNoteComponent', () => {
   });
 
   it('should call API and navigate on successful submit', fakeAsync(() => {
-    const mockNote = { id: 999, title: 'Test', content: 'Content',      courseId: 1,
+    const mockNote = { ID: 999, title: 'Test', content: 'Content',      courseId: 1,
       CreatedAt: new Date().toISOString(),
       userId: 1,
       author: { id: 1, email: 'test@example.com' }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CourseShareApiService } from '../../services/course-share-api.service';
 import { Note } from '../../mock/mock-data.service';
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +13,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-saved-notes',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, RouterModule, MatIconModule, MatChipsModule, MatSnackBarModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, MatChipsModule, MatSnackBarModule],
   templateUrl: './saved-notes.component.html',
   styleUrl: '../notes-list/notes-list.component.css'
 })
@@ -47,7 +47,7 @@ export class SavedNotesComponent implements OnInit {
     event.stopPropagation();
     this.apiService.unsaveNote(noteId).subscribe({
       next: () => {
-        this.notes = this.notes.filter(n => n.id !== noteId);
+        this.notes = this.notes.filter(n => n.ID !== noteId);
         this.snackBar.open('Note removed from saved', 'Close', { duration: 2000 });
       },
       error: () => this.snackBar.open('Failed to unsave note', 'Close', { duration: 3000 })

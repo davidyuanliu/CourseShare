@@ -18,8 +18,8 @@ describe('CoursesComponent', () => {
     
     // Set up default mock return value before component initializes
     spy.getCourses.and.returnValue(of([
-      { id: 1, CreatedAt: '', UpdatedAt: '', name: 'Test Course 1' },
-      { id: 2, CreatedAt: '', UpdatedAt: '', name: 'Test Course 2' }
+      { ID: 1, CreatedAt: '', UpdatedAt: '', name: 'Test Course 1' },
+      { ID: 2, CreatedAt: '', UpdatedAt: '', name: 'Test Course 2' }
     ]));
 
     await TestBed.configureTestingModule({

@@ -265,11 +265,10 @@ func CreateNote(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value("userID").(uint)
 
 	var noteRequest struct {
-		Title      string        `json:"title"`
-		Content    string        `json:"content"`
-		CourseID   uint          `json:"courseId"`
-		Tags       []interface{} `json:"tags"`
-		AuthorName string        `json:"authorName"`
+		Title   string        `json:"title"`
+		Content string        `json:"content"`
+		CourseID uint         `json:"courseId"`
+		Tags    []interface{} `json:"tags"`
 	}
 
 	decoder := json.NewDecoder(r.Body)
@@ -306,18 +305,12 @@ func CreateNote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	authorName := strings.TrimSpace(noteRequest.AuthorName)
-	if authorName == "" {
-		authorName = fmt.Sprintf("%d", userID)
-	}
-
 	note := models.Note{
-		Title:      noteRequest.Title,
-		Content:    noteRequest.Content,
-		CourseID:   noteRequest.CourseID,
-		UserID:     userID,
-		AuthorName: authorName,
-		Tags:       tags,
+		Title:    noteRequest.Title,
+		Content:  noteRequest.Content,
+		CourseID: noteRequest.CourseID,
+		UserID:   userID,
+		Tags:     tags,
 	}
 
 	config.DB.Create(&note)
@@ -382,10 +375,9 @@ func UpdateNote(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value("userID").(uint)
 
 	var updateData struct {
-		Title      string        `json:"title"`
-		Content    string        `json:"content"`
-		Tags       []interface{} `json:"tags"`
-		AuthorName string        `json:"authorName"`
+		Title   string        `json:"title"`
+		Content string        `json:"content"`
+		Tags    []interface{} `json:"tags"`
 	}
 
 	decoder := json.NewDecoder(r.Body)
@@ -432,17 +424,11 @@ func UpdateNote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	authorName := strings.TrimSpace(updateData.AuthorName)
-	if authorName == "" {
-		authorName = fmt.Sprintf("%d", userID)
-	}
-
 	// Update the note
 	config.DB.Model(&note).Updates(models.Note{
-		Title:      updateData.Title,
-		Content:    updateData.Content,
-		AuthorName: authorName,
-		Tags:       tags,
+		Title:   updateData.Title,
+		Content: updateData.Content,
+		Tags:    tags,
 	})
 
 	// Reload note with author information

@@ -18,7 +18,7 @@
     <mat-card-header>
         <mat-card-title>{{ note.title }}</mat-card-title>
         <mat-card-subtitle>
-            Uploaded by {{ note.authorName || note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
+            Uploaded by {{ note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
         </mat-card-subtitle>
         <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
             <button mat-icon-button (click)="toggleHelpful()" [disabled]="!isLoggedIn"
@@ -33,7 +33,7 @@
                 <mat-icon>{{ note.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
             </button>
             <div class="owner-actions" *ngIf="isOwner" style="display: flex; gap: 8px;">
-                <button mat-icon-button color="primary" [routerLink]="['/notes', note.id, 'edit']" aria-label="Edit Note" matTooltip="Edit Note">
+                <button mat-icon-button color="primary" [routerLink]="['/notes', note.ID, 'edit']" aria-label="Edit Note" matTooltip="Edit Note">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="deleteNote()" aria-label="Delete Note" matTooltip="Delete Note">
@@ -57,7 +57,7 @@
 
     <mat-card-footer>
         <div class="footer-info">
-            <small>Note ID: {{ note.id }}</small>
+            <small>Note ID: {{ note.ID }}</small>
         </div>
     </mat-card-footer>
 </mat-card>
