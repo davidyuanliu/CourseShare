@@ -11,6 +11,7 @@ type Note struct {
 	Content      string         `json:"content"`
 	CourseID     uint           `json:"courseId"`
 	UserID       uint           `json:"userId"`
+	AuthorName   string         `json:"authorName"`
 	Tags         datatypes.JSON `json:"tags" gorm:"type:json"`
 	User         *User          `json:"author"`
 	Course       *Course        `json:"course"`

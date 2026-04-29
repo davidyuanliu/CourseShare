@@ -69,6 +69,11 @@ import { HttpErrorResponse } from '@angular/common/http';
                     <mat-hint>Separate tags with commas</mat-hint>
                 </mat-form-field>
 
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Author Name</mat-label>
+                    <input matInput formControlName="author_name" placeholder="Your name (optional)">
+                </mat-form-field>
+
                 <div class="form-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
                     <button mat-stroked-button type="button" [routerLink]="['/notes', noteId]">
                         Cancel
@@ -106,7 +111,8 @@ export class EditNoteComponent implements OnInit {
     this.noteForm = this.fb.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
-      tags: ['']
+      tags: [''],
+      author_name: ['']
     });
 
     if (this.noteId) {
@@ -120,7 +126,8 @@ export class EditNoteComponent implements OnInit {
         this.noteForm.patchValue({
           title: note.title,
           content: note.content,
-          tags: note.tags ? note.tags.join(', ') : ''
+          tags: note.tags ? note.tags.join(', ') : '',
+          author_name: note.authorName || ''
         });
         this.courseId = note.courseId;
         this.loading = false;
@@ -148,7 +155,8 @@ export class EditNoteComponent implements OnInit {
     const payload = {
       title: rawFormValue.title,
       content: rawFormValue.content,
-      tags: uniqueTags as string[]
+      tags: uniqueTags as string[],
+      authorName: rawFormValue.author_name
     };
 
     this.apiService.updateNote(this.noteId, payload).subscribe({

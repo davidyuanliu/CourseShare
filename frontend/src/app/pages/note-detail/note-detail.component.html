@@ -18,7 +18,7 @@
     <mat-card-header>
         <mat-card-title>{{ note.title }}</mat-card-title>
         <mat-card-subtitle>
-            Uploaded by {{ note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
+            Uploaded by {{ note.authorName || note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
         </mat-card-subtitle>
         <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
             <button mat-icon-button (click)="toggleHelpful()" [disabled]="!isLoggedIn"

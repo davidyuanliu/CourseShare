@@ -16,7 +16,7 @@
         <mat-card-header>
             <mat-card-title>{{ note.title }}</mat-card-title>
             <mat-card-subtitle>
-                By {{ note.author?.email || 'Anonymous' }}
+                By {{ note.authorName || note.author?.email || 'Anonymous' }}
                 <span *ngIf="note.course">&bull; {{ note.course.name }}</span>
             </mat-card-subtitle>
         </mat-card-header>

@@ -18,6 +18,7 @@ export interface Note {
     id: number;
     email: string;
   };
+  authorName?: string;
   tags?: string[];
   helpfulCount?: number;
   isHelpful?: boolean;
