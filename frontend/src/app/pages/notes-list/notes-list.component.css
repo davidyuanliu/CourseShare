@@ -1,14 +1,37 @@
-.filters-container {
+.filters-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     margin: 20px 0;
-    justify-content: center;
+    align-items: center;
+    background: #fcfcfc;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #eee;
 }
+
 .filter-field {
-    min-width: 200px;
     flex: 1;
-    max-width: 300px;
+    min-width: 150px;
+}
+
+.search-field {
+    flex: 2;
+    min-width: 250px;
+}
+
+.select-all-container {
+    padding: 8px 16px;
+}
+
+.select-all-checkbox {
+    font-weight: 500;
+}
+
+.additional-selection {
+    opacity: 0.7;
+    font-size: 0.85em;
+    margin-left: 4px;
 }
 
 .header-row {

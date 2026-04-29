@@ -22,12 +22,14 @@
         </mat-card-subtitle>
         <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
             <button mat-icon-button (click)="toggleHelpful()" [disabled]="!isLoggedIn"
+                id="helpful-btn"
                 [matTooltip]="isLoggedIn ? 'Mark as helpful' : 'Login to vote'"
                 [color]="note.isHelpful ? 'primary' : ''">
                 <mat-icon>{{ note.isHelpful ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
                 <span class="helpful-count" *ngIf="note.helpfulCount">{{ note.helpfulCount }}</span>
             </button>
             <button mat-icon-button (click)="toggleSave()" [disabled]="!isLoggedIn"
+                id="save-btn"
                 [matTooltip]="isLoggedIn ? 'Save note' : 'Login to save'"
                 [color]="note.isSaved ? 'accent' : ''">
                 <mat-icon>{{ note.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
