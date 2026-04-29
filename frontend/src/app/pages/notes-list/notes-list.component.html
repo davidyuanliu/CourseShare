@@ -19,12 +19,12 @@
     <button mat-raised-button color="warn" (click)="fetchNotes(courseId!)">Retry</button>
 </div>
 
-<div class="filters-container" *ngIf="notes.length > 0">
-    <mat-form-field appearance="outline" class="filter-field">
+<div class="filters-bar" *ngIf="notes.length > 0">
+    <mat-form-field appearance="outline" class="filter-field search-field">
         <mat-label>Search notes</mat-label>
         <mat-icon matPrefix>search</mat-icon>
-        <input matInput [(ngModel)]="searchQuery" placeholder="Search by title or content">
-        <button *ngIf="searchQuery" matSuffix mat-icon-button aria-label="Clear" (click)="searchQuery=''">
+        <input matInput [(ngModel)]="searchQuery" placeholder="Keywords...">
+        <button *ngIf="searchQuery" matSuffix mat-icon-button (click)="searchQuery=''">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
@@ -35,14 +35,49 @@
             <mat-option value="newest">Newest First</mat-option>
             <mat-option value="oldest">Oldest First</mat-option>
             <mat-option value="title">Title (A-Z)</mat-option>
+            <mat-option value="likes">Most Likes</mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="filter-field" *ngIf="allTags.length > 0">
-        <mat-label>Filter by Tag</mat-label>
-        <mat-select [(ngModel)]="tagFilter">
-            <mat-option value="">All Tags</mat-option>
-            <mat-option *ngFor="let tag of allTags" [value]="tag">{{ tag }}</mat-option>
+        <mat-label>Tags</mat-label>
+        <mat-select [(ngModel)]="selectedTags" multiple>
+            <mat-select-trigger>
+                {{selectedTags.length > 0 ? selectedTags[0] : ''}}
+                <span *ngIf="selectedTags.length > 1" class="additional-selection">
+                    (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
+                </span>
+            </mat-select-trigger>
+            
+            <div class="select-all-container">
+                <mat-checkbox class="select-all-checkbox"
+                              [checked]="allSelected"
+                              [indeterminate]="partiallySelected"
+                              (change)="toggleAllTags($event.checked)">
+                    Select All
+                </mat-checkbox>
+            </div>
+            <mat-divider></mat-divider>
+            
+            <mat-option *ngFor="let tag of allTags" [value]="tag">{{tag}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field" *ngIf="isLoggedIn">
+        <mat-label>Personal Filters</mat-label>
+        <mat-select multiple id="personal-filters-select">
+            <mat-select-trigger>
+                <span *ngIf="showOnlyMine && showOnlySaved">Mine & Saved</span>
+                <span *ngIf="showOnlyMine && !showOnlySaved">Written by me</span>
+                <span *ngIf="!showOnlyMine && showOnlySaved">Saved by me</span>
+                <span *ngIf="!showOnlyMine && !showOnlySaved">All Notes</span>
+            </mat-select-trigger>
+            <mat-option>
+                <mat-checkbox [(ngModel)]="showOnlyMine" (click)="$event.stopPropagation()">Written by me</mat-checkbox>
+            </mat-option>
+            <mat-option>
+                <mat-checkbox [(ngModel)]="showOnlySaved" (click)="$event.stopPropagation()">Saved by me</mat-checkbox>
+            </mat-option>
         </mat-select>
     </mat-form-field>
 </div>

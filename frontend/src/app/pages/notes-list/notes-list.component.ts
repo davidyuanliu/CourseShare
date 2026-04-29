@@ -11,11 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthService } from '../../services/auth.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatCheckboxModule, MatDividerModule],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.css'
 })
@@ -27,11 +30,14 @@ export class NotesListComponent implements OnInit {
 
   searchQuery = '';
   sortBy = 'newest';
-  tagFilter = '';
+  selectedTags: string[] = [];
+  showOnlyMine = false;
+  showOnlySaved = false;
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: CourseShareApiService
+    private apiService: CourseShareApiService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -61,8 +67,19 @@ export class NotesListComponent implements OnInit {
       result = result.filter(n => n.title.toLowerCase().includes(q) || n.content.toLowerCase().includes(q));
     }
 
-    if (this.tagFilter) {
-      result = result.filter(n => n.tags && n.tags.includes(this.tagFilter));
+    if (this.selectedTags.length > 0) {
+      result = result.filter(n => n.tags && n.tags.some(tag => this.selectedTags.includes(tag)));
+    }
+
+    if (this.showOnlyMine) {
+      const currentUserId = this.authService.currentUserValue?.id;
+      if (currentUserId) {
+        result = result.filter(n => n.userId === currentUserId);
+      }
+    }
+
+    if (this.showOnlySaved) {
+      result = result.filter(n => n.isSaved);
     }
 
     result = result.slice().sort((a, b) => {
@@ -72,6 +89,8 @@ export class NotesListComponent implements OnInit {
         return new Date(a.CreatedAt).getTime() - new Date(b.CreatedAt).getTime();
       } else if (this.sortBy === 'title') {
         return a.title.localeCompare(b.title);
+      } else if (this.sortBy === 'likes') {
+        return (b.helpfulCount || 0) - (a.helpfulCount || 0);
       }
       return 0;
     });
@@ -92,5 +111,35 @@ export class NotesListComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  get allSelected(): boolean {
+    return this.allTags.length > 0 && this.selectedTags.length === this.allTags.length;
+  }
+
+  get partiallySelected(): boolean {
+    return this.selectedTags.length > 0 && this.selectedTags.length < this.allTags.length;
+  }
+
+  toggleAllTags(checked: boolean): void {
+    if (checked) {
+      this.selectedTags = [...this.allTags];
+    } else {
+      this.selectedTags = [];
+    }
+  }
+
+  onTagChange(tag: string, checked: boolean): void {
+    if (checked) {
+      if (!this.selectedTags.includes(tag)) {
+        this.selectedTags = [...this.selectedTags, tag];
+      }
+    } else {
+      this.selectedTags = this.selectedTags.filter(t => t !== tag);
+    }
+  }
+
+  get isLoggedIn(): boolean {
+    return !!this.authService.currentUserValue;
   }
 }
