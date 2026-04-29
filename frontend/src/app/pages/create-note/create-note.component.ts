@@ -51,7 +51,7 @@ export class CreateNoteComponent implements OnInit {
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
       tags: [''],
-      authorName: ['']
+      author_name: ['']
     });
   }
 
@@ -74,7 +74,6 @@ export class CreateNoteComponent implements OnInit {
       title: rawFormValue.title,
       content: rawFormValue.content,
       tags: uniqueTags as string[],
-      authorName: rawFormValue.authorName,
       courseId: parseInt(this.courseId, 10)
     };
 

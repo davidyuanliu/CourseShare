@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CourseShareApiService } from '../../services/course-share-api.service';
 import { Note } from '../../mock/mock-data.service';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 @Component({
   selector: 'app-my-notes',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, RouterModule, MatIconModule, MatChipsModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, MatChipsModule],
   templateUrl: './my-notes.component.html',
   styleUrl: '../notes-list/notes-list.component.css'
 })

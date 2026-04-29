@@ -12,11 +12,11 @@
 </div>
 
 <div *ngIf="!loading && !error" class="notes-list">
-    <mat-card *ngFor="let note of notes" class="note-card clickable" [routerLink]="['/notes', note.id]">
+    <mat-card *ngFor="let note of notes" class="note-card clickable" [routerLink]="['/notes', note.ID]">
         <mat-card-header>
             <mat-card-title>{{ note.title }}</mat-card-title>
             <mat-card-subtitle>
-                By {{ note.authorName || note.author?.email || 'Anonymous' }}
+                By {{ note.author?.email || 'Anonymous' }}
                 <span *ngIf="note.course">&bull; {{ note.course.name }}</span>
             </mat-card-subtitle>
         </mat-card-header>
@@ -30,7 +30,7 @@
             <span *ngIf="note.helpfulCount !== undefined" style="margin-right: 16px; color: #666; display: flex; align-items: center; gap: 4px;">
                 <mat-icon style="font-size: 18px; width: 18px; height: 18px;">thumb_up</mat-icon> {{ note.helpfulCount }}
             </span>
-            <button mat-button color="warn" (click)="unsaveNote(note.id, $event)">UNSAVE</button>
+            <button mat-button color="warn" (click)="unsaveNote(note.ID, $event)">UNSAVE</button>
         </mat-card-actions>
     </mat-card>
 

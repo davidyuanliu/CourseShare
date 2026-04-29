@@ -1,12 +1,12 @@
 export interface Course {
-  id: number;
+  ID: number;
   CreatedAt: string;
   UpdatedAt: string;
   name: string;
 }
 
 export interface Note {
-  id: number;
+  ID: number;
   CreatedAt: string;
   UpdatedAt?: string;
   title: string;
@@ -18,7 +18,6 @@ export interface Note {
     id: number;
     email: string;
   };
-  authorName?: string;
   tags?: string[];
   helpfulCount?: number;
   isHelpful?: boolean;
