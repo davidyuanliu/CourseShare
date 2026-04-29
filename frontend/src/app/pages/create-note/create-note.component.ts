@@ -74,6 +74,7 @@ export class CreateNoteComponent implements OnInit {
       title: rawFormValue.title,
       content: rawFormValue.content,
       tags: uniqueTags as string[],
+      authorName: rawFormValue.author_name,
       courseId: parseInt(this.courseId, 10)
     };
 

@@ -52,7 +52,7 @@
         <mat-card-header>
             <mat-card-title>{{ note.title }}</mat-card-title>
             <mat-card-subtitle>
-                By {{ note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'mediumDate' }}
+                By {{ note.authorName || note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'mediumDate' }}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
