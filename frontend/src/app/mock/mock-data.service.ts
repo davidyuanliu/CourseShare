@@ -1,19 +1,26 @@
 export interface Course {
-  ID: number;
+  id: number;
   CreatedAt: string;
   UpdatedAt: string;
   name: string;
 }
 
 export interface Note {
-  ID: number;
+  id: number;
   CreatedAt: string;
+  UpdatedAt?: string;
   title: string;
   content: string;
   courseId: number;
+  course?: Course;
   userId: number;
-  author: {
+  author?: {
     id: number;
     email: string;
   };
+  authorName?: string;
+  tags?: string[];
+  helpfulCount?: number;
+  isHelpful?: boolean;
+  isSaved?: boolean;
 }

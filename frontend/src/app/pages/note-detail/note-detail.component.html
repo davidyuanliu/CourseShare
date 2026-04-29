@@ -18,21 +18,38 @@
     <mat-card-header>
         <mat-card-title>{{ note.title }}</mat-card-title>
         <mat-card-subtitle>
-            Uploaded by {{ note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
+            Uploaded by {{ note.authorName || note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'fullDate' }}
         </mat-card-subtitle>
-        <div class="owner-actions" *ngIf="isOwner" style="margin-left: auto;">
-            <button mat-icon-button color="primary" [routerLink]="['/notes', note.ID, 'edit']" aria-label="Edit Note">
-                <mat-icon>edit</mat-icon>
+        <div class="header-actions" style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+            <button mat-icon-button (click)="toggleHelpful()" [disabled]="!isLoggedIn"
+                [matTooltip]="isLoggedIn ? 'Mark as helpful' : 'Login to vote'"
+                [color]="note.isHelpful ? 'primary' : ''">
+                <mat-icon>{{ note.isHelpful ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
+                <span class="helpful-count" *ngIf="note.helpfulCount">{{ note.helpfulCount }}</span>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteNote()" aria-label="Delete Note">
-                <mat-icon>delete</mat-icon>
+            <button mat-icon-button (click)="toggleSave()" [disabled]="!isLoggedIn"
+                [matTooltip]="isLoggedIn ? 'Save note' : 'Login to save'"
+                [color]="note.isSaved ? 'accent' : ''">
+                <mat-icon>{{ note.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
             </button>
+            <div class="owner-actions" *ngIf="isOwner" style="display: flex; gap: 8px;">
+                <button mat-icon-button color="primary" [routerLink]="['/notes', note.id, 'edit']" aria-label="Edit Note" matTooltip="Edit Note">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteNote()" aria-label="Delete Note" matTooltip="Delete Note">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </mat-card-header>
 
     <mat-divider></mat-divider>
 
     <mat-card-content class="note-content">
+        <mat-chip-set *ngIf="note.tags && note.tags.length > 0" class="tags-container" style="margin-bottom: 16px; display: block;">
+            <mat-chip *ngFor="let tag of note.tags" color="accent">{{ tag }}</mat-chip>
+        </mat-chip-set>
+        
         <div class="content-body">
             {{ note.content }}
         </div>
@@ -40,7 +57,7 @@
 
     <mat-card-footer>
         <div class="footer-info">
-            <small>Note ID: {{ note.ID }}</small>
+            <small>Note ID: {{ note.id }}</small>
         </div>
     </mat-card-footer>
 </mat-card>

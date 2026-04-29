@@ -27,7 +27,7 @@ describe('AuthService', () => {
       expect(service.currentUserValue?.email).toEqual('test@example.com');
     });
 
-    const req = httpMock.expectOne('https://unconstellated-ruthann-fiducially.ngrok-free.dev/auth/login');
+    const req = httpMock.expectOne('https://courseshare.onrender.com/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush(mockReponse);
   });

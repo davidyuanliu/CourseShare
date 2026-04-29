@@ -20,13 +20,24 @@
     <button mat-raised-button color="warn" (click)="fetchCourses()">Retry</button>
 </div>
 
+<div class="search-container" *ngIf="courses.length > 0">
+    <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search courses</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput [(ngModel)]="searchQuery" placeholder="Search by course name">
+        <button *ngIf="searchQuery" matSuffix mat-icon-button aria-label="Clear" (click)="searchQuery=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
 <div *ngIf="!loading && !error" class="courses-grid">
-    <mat-card *ngFor="let course of courses" class="course-card">
+    <mat-card *ngFor="let course of filteredCourses" class="course-card">
         <mat-card-header>
             <mat-card-title>{{ course.name }}</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-button color="primary" (click)="viewNotes(course.ID)">VIEW NOTES</button>
+            <button mat-button color="primary" (click)="viewNotes(course.id)">VIEW NOTES</button>
         </mat-card-actions>
     </mat-card>
 

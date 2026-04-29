@@ -19,12 +19,40 @@
     <button mat-raised-button color="warn" (click)="fetchNotes(courseId!)">Retry</button>
 </div>
 
+<div class="filters-container" *ngIf="notes.length > 0">
+    <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Search notes</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput [(ngModel)]="searchQuery" placeholder="Search by title or content">
+        <button *ngIf="searchQuery" matSuffix mat-icon-button aria-label="Clear" (click)="searchQuery=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Sort By</mat-label>
+        <mat-select [(ngModel)]="sortBy">
+            <mat-option value="newest">Newest First</mat-option>
+            <mat-option value="oldest">Oldest First</mat-option>
+            <mat-option value="title">Title (A-Z)</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field" *ngIf="allTags.length > 0">
+        <mat-label>Filter by Tag</mat-label>
+        <mat-select [(ngModel)]="tagFilter">
+            <mat-option value="">All Tags</mat-option>
+            <mat-option *ngFor="let tag of allTags" [value]="tag">{{ tag }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
 <div *ngIf="!loading && !error" class="notes-list">
-    <mat-card *ngFor="let note of notes" class="note-card clickable" [routerLink]="['/notes', note.ID]">
+    <mat-card *ngFor="let note of filteredNotes" class="note-card clickable" [routerLink]="['/notes', note.id]">
         <mat-card-header>
             <mat-card-title>{{ note.title }}</mat-card-title>
             <mat-card-subtitle>
-                By {{ note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'mediumDate' }}
+                By {{ note.authorName || note.author?.email || 'Anonymous' }} &bull; {{ note.CreatedAt | date:'mediumDate' }}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>

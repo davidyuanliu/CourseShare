@@ -13,17 +13,17 @@ describe('Note Ownership & UI Restrictions', () => {
   };
 
   beforeEach(() => {
-    cy.intercept('GET', 'https://unconstellated-ruthann-fiducially.ngrok-free.dev/notes/100', {
+    cy.intercept('GET', 'https://courseshare.onrender.com/notes/100', {
       statusCode: 200,
       body: dummyNote
     }).as('getNote');
 
-    cy.intercept('PUT', 'https://unconstellated-ruthann-fiducially.ngrok-free.dev/notes/100', {
+    cy.intercept('PUT', 'https://courseshare.onrender.com/notes/100', {
       statusCode: 200,
       body: { message: 'Note updated successfully', note: { ...dummyNote, title: 'Updated Title' } }
     }).as('updateNote');
 
-    cy.intercept('DELETE', 'https://unconstellated-ruthann-fiducially.ngrok-free.dev/notes/100', {
+    cy.intercept('DELETE', 'https://courseshare.onrender.com/notes/100', {
       statusCode: 200,
       body: { message: 'Note deleted successfully' }
     }).as('deleteNote');

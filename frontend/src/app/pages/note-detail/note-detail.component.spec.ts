@@ -38,14 +38,14 @@ describe('NoteDetailComponent', () => {
   });
 
   it('should not be owner if not logged in', () => {
-    component.note = { ID: 1, courseId: 1, title: 'T', content: 'C', CreatedAt: '', userId: 1, author: {id: 1, email: 'A'} };
+    component.note = { id: 1, courseId: 1, title: 'T', content: 'C', CreatedAt: '', userId: 1, author: {id: 1, email: 'A'} };
     currentUserSubject.next(null);
     component.isOwner = !!component.note && !!authServiceSpy.currentUserValue && authServiceSpy.currentUserValue.id === component.note.userId;
     expect(component.isOwner).toBeFalsy();
   });
 
   it('should be owner if logged in as author', () => {
-    component.note = { ID: 1, courseId: 1, title: 'T', content: 'C', CreatedAt: '', userId: 1, author: {id: 1, email: 'A'} };
+    component.note = { id: 1, courseId: 1, title: 'T', content: 'C', CreatedAt: '', userId: 1, author: {id: 1, email: 'A'} };
     currentUserSubject.next({ id: 1, email: 'A' });
     component.isOwner = !!component.note && !!authServiceSpy.currentUserValue && authServiceSpy.currentUserValue.id === component.note.userId;
     expect(component.isOwner).toBeTruthy();

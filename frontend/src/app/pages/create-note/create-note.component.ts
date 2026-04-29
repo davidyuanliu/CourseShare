@@ -50,7 +50,8 @@ export class CreateNoteComponent implements OnInit {
     this.noteForm = this.fb.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
-      author_name: ['']
+      tags: [''],
+      authorName: ['']
     });
   }
 
@@ -63,8 +64,17 @@ export class CreateNoteComponent implements OnInit {
     this.submitting = true;
     this.serverError = null;
 
+    const rawFormValue = this.noteForm.value;
+    const rawTags = rawFormValue.tags ? rawFormValue.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : [];
+    
+    // De-duplicate tags
+    const uniqueTags = [...new Set(rawTags)];
+
     const notePayload = {
-      ...this.noteForm.value,
+      title: rawFormValue.title,
+      content: rawFormValue.content,
+      tags: uniqueTags as string[],
+      authorName: rawFormValue.authorName,
       courseId: parseInt(this.courseId, 10)
     };
 

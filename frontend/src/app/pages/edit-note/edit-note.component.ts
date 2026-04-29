@@ -63,6 +63,18 @@ import { HttpErrorResponse } from '@angular/common/http';
                     </mat-error>
                 </mat-form-field>
 
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Tags</mat-label>
+                    <input matInput formControlName="tags" placeholder="e.g. math, exam, cheat-sheet (comma separated)">
+                    <mat-hint>Separate tags with commas</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Author Name</mat-label>
+                    <input matInput formControlName="authorName" placeholder="Your name (optional)">
+                    <mat-hint>Defaults to User ID if empty</mat-hint>
+                </mat-form-field>
+
                 <div class="form-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
                     <button mat-stroked-button type="button" [routerLink]="['/notes', noteId]">
                         Cancel
@@ -99,7 +111,9 @@ export class EditNoteComponent implements OnInit {
     
     this.noteForm = this.fb.group({
       title: ['', [Validators.required]],
-      content: ['', [Validators.required]]
+      content: ['', [Validators.required]],
+      tags: [''],
+      authorName: ['']
     });
 
     if (this.noteId) {
@@ -112,7 +126,9 @@ export class EditNoteComponent implements OnInit {
       next: (note) => {
         this.noteForm.patchValue({
           title: note.title,
-          content: note.content
+          content: note.content,
+          tags: note.tags ? note.tags.join(', ') : '',
+          authorName: note.authorName
         });
         this.courseId = note.courseId;
         this.loading = false;
@@ -133,7 +149,18 @@ export class EditNoteComponent implements OnInit {
     this.submitting = true;
     this.serverError = null;
 
-    this.apiService.updateNote(this.noteId, this.noteForm.value).subscribe({
+    const rawFormValue = this.noteForm.value;
+    const rawTags = rawFormValue.tags ? rawFormValue.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : [];
+    const uniqueTags = [...new Set(rawTags)];
+
+    const payload = {
+      title: rawFormValue.title,
+      content: rawFormValue.content,
+      tags: uniqueTags as string[],
+      authorName: rawFormValue.authorName
+    };
+
+    this.apiService.updateNote(this.noteId, payload).subscribe({
       next: () => {
         this.submitting = false;
         this.snackBar.open('Note updated successfully!', 'Close', {

@@ -40,7 +40,7 @@ describe('CourseShareApiService', () => {
       (expect(courses) as any).toEqual(mockCourses);
     });
 
-    const req = httpMock.expectOne('https://unconstellated-ruthann-fiducially.ngrok-free.dev/courses');
+    const req = httpMock.expectOne('https://courseshare.onrender.com/courses');
     (expect(req.request.method) as any).toBe('GET');
     req.flush(mockCourses);
   });

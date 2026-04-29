@@ -1,3 +1,13 @@
+.search-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+.search-field {
+    width: 100%;
+    max-width: 500px;
+}
+
 .header-with-action {
     display: flex;
     justify-content: space-between;

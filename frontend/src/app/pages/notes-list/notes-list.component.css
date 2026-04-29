@@ -1,3 +1,16 @@
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 20px 0;
+    justify-content: center;
+}
+.filter-field {
+    min-width: 200px;
+    flex: 1;
+    max-width: 300px;
+}
+
 .header-row {
     display: flex;
     align-items: center;

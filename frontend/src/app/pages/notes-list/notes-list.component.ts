@@ -7,11 +7,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.css'
 })
@@ -20,6 +24,10 @@ export class NotesListComponent implements OnInit {
   courseId: string | null = null;
   loading = true;
   error: string | null = null;
+
+  searchQuery = '';
+  sortBy = 'newest';
+  tagFilter = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -35,12 +43,48 @@ export class NotesListComponent implements OnInit {
     });
   }
 
+  get allTags(): string[] {
+    const tags = new Set<string>();
+    this.notes.forEach(note => {
+      if (note.tags) {
+        note.tags.forEach(tag => tags.add(tag));
+      }
+    });
+    return Array.from(tags).sort();
+  }
+
+  get filteredNotes(): Note[] {
+    let result = this.notes;
+
+    if (this.searchQuery) {
+      const q = this.searchQuery.toLowerCase();
+      result = result.filter(n => n.title.toLowerCase().includes(q) || n.content.toLowerCase().includes(q));
+    }
+
+    if (this.tagFilter) {
+      result = result.filter(n => n.tags && n.tags.includes(this.tagFilter));
+    }
+
+    result = result.slice().sort((a, b) => {
+      if (this.sortBy === 'newest') {
+        return new Date(b.CreatedAt).getTime() - new Date(a.CreatedAt).getTime();
+      } else if (this.sortBy === 'oldest') {
+        return new Date(a.CreatedAt).getTime() - new Date(b.CreatedAt).getTime();
+      } else if (this.sortBy === 'title') {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+
+    return result;
+  }
+
   fetchNotes(courseId: string): void {
     this.loading = true;
     this.error = null;
     this.apiService.getNotesByCourse(courseId).subscribe({
       next: (data) => {
-        this.notes = data.sort((a, b) => new Date(b.CreatedAt).getTime() - new Date(a.CreatedAt).getTime());
+        this.notes = data;
         this.loading = false;
       },
       error: (err) => {

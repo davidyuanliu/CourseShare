@@ -21,6 +21,7 @@ import { DemoControlService } from '../../services/demo-control.service';
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
+  searchQuery = '';
   loading = true;
   error: string | null = null;
   newCourseName = '';
@@ -34,6 +35,11 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCourses();
+  }
+
+  get filteredCourses(): Course[] {
+    if (!this.searchQuery) return this.courses;
+    return this.courses.filter(c => c.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
   }
 
   fetchCourses(): void {

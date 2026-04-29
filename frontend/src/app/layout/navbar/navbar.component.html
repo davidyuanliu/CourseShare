@@ -10,6 +10,8 @@
     </ng-container>
 
     <ng-template #loggedIn>
+        <button mat-button routerLink="/my-notes" routerLinkActive="active">My Notes</button>
+        <button mat-button routerLink="/saved-notes" routerLinkActive="active">Saved Notes</button>
         <button mat-button disabled>{{ (authService.currentUser$ | async)?.email }}</button>
         <button mat-button (click)="logout()">Logout</button>
     </ng-template>

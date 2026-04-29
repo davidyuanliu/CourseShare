@@ -1,0 +1,45 @@
+<div class="header-row">
+    <h2>My Notes</h2>
+</div>
+
+<div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button mat-raised-button color="warn" (click)="fetchMyNotes()">Retry</button>
+</div>
+
+<div *ngIf="!loading && !error" class="notes-list">
+    <mat-card *ngFor="let note of notes" class="note-card clickable" [routerLink]="['/notes', note.id]">
+        <mat-card-header>
+            <mat-card-title>{{ note.title }}</mat-card-title>
+            <mat-card-subtitle>
+                {{ note.CreatedAt | date:'mediumDate' }}
+                <span *ngIf="note.course">&bull; {{ note.course.name }}</span>
+                <div style="margin-top: 4px; font-size: 0.85em; opacity: 0.8;">
+                    As: {{ note.authorName || note.author?.email }}
+                </div>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-chip-set *ngIf="note.tags && note.tags.length > 0" style="margin-bottom: 8px;">
+                <mat-chip *ngFor="let tag of note.tags" color="accent" highlighted="true">{{ tag }}</mat-chip>
+            </mat-chip-set>
+            <p class="excerpt">{{ note.content | slice:0:150 }}...</p>
+        </mat-card-content>
+        <mat-card-actions style="justify-content: flex-end; padding: 8px;">
+            <span *ngIf="note.helpfulCount !== undefined" style="margin-right: 16px; color: #666; display: flex; align-items: center; gap: 4px;">
+                <mat-icon style="font-size: 18px; width: 18px; height: 18px;">thumb_up</mat-icon> {{ note.helpfulCount }}
+            </span>
+            <button mat-button color="primary" [routerLink]="['/notes', note.id, 'edit']" (click)="$event.stopPropagation()">EDIT</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <div *ngIf="notes.length === 0" class="text-center empty-state">
+        <mat-icon class="huge-icon">note_stack</mat-icon>
+        <p>You haven't created any notes yet.</p>
+        <button mat-stroked-button routerLink="/courses">Browse courses to add notes</button>
+    </div>
+</div>

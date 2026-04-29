@@ -13,11 +13,13 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-note-detail',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, MatDividerModule, MatDialogModule, MatSnackBarModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, RouterLink, MatIconModule, MatDividerModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatTooltipModule],
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.css'
 })
@@ -72,7 +74,7 @@ export class NoteDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.apiService.deleteNote(this.note!.ID).subscribe({
+        this.apiService.deleteNote(this.note!.id).subscribe({
           next: () => {
             this.snackBar.open('Note deleted successfully', 'Close', { duration: 3000 });
             this.router.navigate(['/courses', this.note!.courseId, 'notes']);
@@ -83,5 +85,55 @@ export class NoteDetailComponent implements OnInit {
         });
       }
     });
+  }
+
+  toggleHelpful(): void {
+    if (!this.note || !this.authService.currentUserValue) return;
+
+    if (this.note.isHelpful) {
+      this.apiService.unmarkNoteHelpful(this.note.id).subscribe({
+        next: () => {
+          this.note!.isHelpful = false;
+          if (this.note!.helpfulCount !== undefined) {
+            this.note!.helpfulCount--;
+          }
+        },
+        error: () => this.snackBar.open('Failed to unmark helpful', 'Close', { duration: 3000 })
+      });
+    } else {
+      this.apiService.markNoteHelpful(this.note.id).subscribe({
+        next: () => {
+          this.note!.isHelpful = true;
+          this.note!.helpfulCount = (this.note!.helpfulCount || 0) + 1;
+        },
+        error: () => this.snackBar.open('Failed to mark helpful', 'Close', { duration: 3000 })
+      });
+    }
+  }
+
+  toggleSave(): void {
+    if (!this.note || !this.authService.currentUserValue) return;
+
+    if (this.note.isSaved) {
+      this.apiService.unsaveNote(this.note.id).subscribe({
+        next: () => {
+          this.note!.isSaved = false;
+          this.snackBar.open('Note removed from saved', 'Close', { duration: 2000 });
+        },
+        error: () => this.snackBar.open('Failed to unsave note', 'Close', { duration: 3000 })
+      });
+    } else {
+      this.apiService.saveNote(this.note.id).subscribe({
+        next: () => {
+          this.note!.isSaved = true;
+          this.snackBar.open('Note saved successfully', 'Close', { duration: 2000 });
+        },
+        error: () => this.snackBar.open('Failed to save note', 'Close', { duration: 3000 })
+      });
+    }
+  }
+
+  get isLoggedIn(): boolean {
+    return !!this.authService.currentUserValue;
   }
 }

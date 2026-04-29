@@ -31,8 +31,15 @@
 
             <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Author Name</mat-label>
-                <input matInput formControlName="author_name" placeholder="Your name (optional)"
+                <input matInput formControlName="authorName" placeholder="Your name (optional)"
                     id="note-author-input">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tags</mat-label>
+                <input matInput formControlName="tags" placeholder="e.g. math, exam, cheat-sheet (comma separated)"
+                    id="note-tags-input">
+                <mat-hint>Separate tags with commas</mat-hint>
             </mat-form-field>
 
             <div class="form-actions">

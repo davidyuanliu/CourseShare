@@ -8,8 +8,8 @@ import { DemoControlService } from './demo-control.service';
   providedIn: 'root'
 })
 export class CourseShareApiService {
-  private apiUrl = 'https://unconstellated-ruthann-fiducially.ngrok-free.dev';
-  private headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
+  private apiUrl = 'https://courseshare.onrender.com';
+  private headers = new HttpHeaders();
 
   constructor(private http: HttpClient, private demoControl: DemoControlService) { }
 
@@ -60,5 +60,41 @@ export class CourseShareApiService {
     const error = this.checkError('delete note');
     if (error) return error;
     return this.http.delete(`${this.apiUrl}/notes/${noteId}`, { headers: this.headers });
+  }
+
+  getMyNotes(): Observable<Note[]> {
+    const error = this.checkError('fetch my notes');
+    if (error) return error;
+    return this.http.get<Note[]>(`${this.apiUrl}/my-notes`, { headers: this.headers });
+  }
+
+  getSavedNotes(): Observable<Note[]> {
+    const error = this.checkError('fetch saved notes');
+    if (error) return error;
+    return this.http.get<Note[]>(`${this.apiUrl}/saved-notes`, { headers: this.headers });
+  }
+
+  markNoteHelpful(noteId: number | string): Observable<any> {
+    const error = this.checkError('mark note helpful');
+    if (error) return error;
+    return this.http.post(`${this.apiUrl}/notes/${noteId}/helpful`, {}, { headers: this.headers });
+  }
+
+  unmarkNoteHelpful(noteId: number | string): Observable<any> {
+    const error = this.checkError('unmark note helpful');
+    if (error) return error;
+    return this.http.delete(`${this.apiUrl}/notes/${noteId}/helpful`, { headers: this.headers });
+  }
+
+  saveNote(noteId: number | string): Observable<any> {
+    const error = this.checkError('save note');
+    if (error) return error;
+    return this.http.post(`${this.apiUrl}/notes/${noteId}/save`, {}, { headers: this.headers });
+  }
+
+  unsaveNote(noteId: number | string): Observable<any> {
+    const error = this.checkError('unsave note');
+    if (error) return error;
+    return this.http.delete(`${this.apiUrl}/notes/${noteId}/save`, { headers: this.headers });
   }
 }

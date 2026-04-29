@@ -7,8 +7,8 @@ import { User, AuthResponse, LoginCredentials } from '../models/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://unconstellated-ruthann-fiducially.ngrok-free.dev/auth';
-  private headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
+  private apiUrl = 'https://courseshare.onrender.com/auth';
+  private headers = new HttpHeaders();
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
